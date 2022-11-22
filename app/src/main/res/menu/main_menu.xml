@@ -16,4 +16,7 @@
     <item
         android:id="@+id/LoadSharePreference"
         android:title="LoadSharePreference" />
+    <item
+        android:id="@+id/AlertDialog"
+        android:title="AlertDialog" />
 </menu>

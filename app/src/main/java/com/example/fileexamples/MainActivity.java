@@ -1,9 +1,11 @@
 package com.example.fileexamples;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     String fileName = "Assessments.json";
     private static Context context = null;
     SharedPreferences settings;
-
+    DialogInterface.OnClickListener myClickListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
         adap = new ArrayAdapter<StudMark>(this, android.R.layout.simple_list_item_1, grades);
         lvAll.setAdapter(adap);
         settings = this.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+        myClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(), "Выбран да", Toast.LENGTH_SHORT).show();
+            }
+        };
 
     }
 
@@ -85,6 +93,20 @@ public class MainActivity extends AppCompatActivity {
         {
             String s1 = settings.getString("name", "");
             Toast.makeText(this, s1, Toast.LENGTH_LONG).show();
+        }
+        if (itemId == R.id.AlertDialog)
+        {
+            AlertDialog.Builder adb = new AlertDialog.Builder(this);
+            adb.setTitle("Добро пожаловать");
+            adb.setMessage("Тестовое диалоговое окно");
+            // кнопка положительного ответа
+            adb.setPositiveButton("Да", myClickListener);
+            // кнопка отрицательного ответа
+            adb.setNegativeButton("Нет", null);
+            // кнопка нейтрального ответа
+            adb.setNeutralButton("Отмена", null);
+            adb.create().show();
+
         }
 
         return super.onOptionsItemSelected(item);
