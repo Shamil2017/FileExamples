@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     OutputStreamWriter osw;
     BufferedWriter bw;
     String fileName = "Assessments.json";
+    private static Context context = null;
+    SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         lvAll = findViewById(R.id.lvAll);
         adap = new ArrayAdapter<StudMark>(this, android.R.layout.simple_list_item_1, grades);
         lvAll.setAdapter(adap);
+        settings = this.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE);
+
     }
 
     @Override
@@ -69,6 +74,17 @@ public class MainActivity extends AppCompatActivity {
         if (itemId ==R.id.ClearList)
         {
             goClearList();
+        }
+        if (itemId == R.id.SaveSharePreference)
+        {
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString( "name", "Android" );
+            editor.commit();
+        }
+        if (itemId == R.id.LoadSharePreference)
+        {
+            String s1 = settings.getString("name", "");
+            Toast.makeText(this, s1, Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);

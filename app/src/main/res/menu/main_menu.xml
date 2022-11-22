@@ -10,4 +10,10 @@
     <item
         android:id="@+id/ClearList"
         android:title="Clear" />
+    <item
+        android:id="@+id/SaveSharePreference"
+        android:title="SaveSharePreference" />
+    <item
+        android:id="@+id/LoadSharePreference"
+        android:title="LoadSharePreference" />
 </menu>
